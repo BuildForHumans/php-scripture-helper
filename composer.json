@@ -1,0 +1,25 @@
+{
+  "name": "buildforhumans/php-scripture-helper",
+  "description": "PHP utility classes for parsing and processing Bible references",
+  "version": "1.0.0",
+  "keywords": [
+    "bible",
+    "scripture",
+    "references",
+    "parser"
+  ],
+  "authors": [
+    {
+      "name": "Michael Rog",
+      "homepage": "https://michaelrog.com"
+    }
+  ],
+  "require": {
+    "php": ">=8"
+  },
+  "autoload": {
+    "psr-4": {
+      "BuildForHumans\\ScriptureHelper\\": "src/"
+    }
+  }
+}
