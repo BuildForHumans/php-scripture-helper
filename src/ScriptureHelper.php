@@ -1,14 +1,16 @@
 <?php
 namespace BuildForHumans\ScriptureHelper;
 
-use InvalidArgumentException;
-use Throwable;
-
 class ScriptureHelper
 {
 
 	const BOOK_REGEX = '((I|II|III|IV|1|2|3|4|First|Second|Third|Fourth|Song\sof|Acts\sof\sthe)\s{0,1})?([A-Z][a-z]+)';
 	const CV_REGEX = '((\d+(:\d+[a-z]?)?)([-—](\d+(:\d+[a-z]?)?))?)';
+
+	public static function bcvRegex(): string
+	{
+		return '\b' . self::BOOK_REGEX . '(\s{0,1})' . self::CV_REGEX . '(,\s{0,1}' . self::CV_REGEX . ')*';
+	}
 
 	public static function getUniqueRefs(?string $text = null): array
 	{
@@ -33,7 +35,7 @@ class ScriptureHelper
 			return [];
 		}
 
-		$bcvRegex = '\b' . self::BOOK_REGEX . '(\s{0,1})' . self::CV_REGEX . '(,\s{0,1}' . self::CV_REGEX . ')*';
+		$bcvRegex = static::bcvRegex();
 		preg_match_all("/{$bcvRegex}/", $text, $matches);
 		return $matches[0];
 
@@ -92,7 +94,7 @@ class ScriptureHelper
 				}
 
 			}
-			catch (Throwable $e)
+			catch (\Throwable $e)
 			{
 				continue;
 			}
@@ -190,7 +192,7 @@ class ScriptureHelper
 				break;
 
 			default:
-				throw new InvalidArgumentException("Badly formed chapter/verse reference.");
+				throw new \InvalidArgumentException("Badly formed chapter/verse reference.");
 
 		}
 
@@ -251,7 +253,7 @@ class ScriptureHelper
 				if ($scriptureReference) $scriptureReferences[] = $scriptureReference;
 
 			}
-			catch (Throwable $e)
+			catch (\Throwable $e)
 			{
 				// Aggressively fail-silent: Ignore anything that causes errors
 				continue;

@@ -1,8 +1,6 @@
 <?php
 namespace BuildForHumans\ScriptureHelper;
 
-use InvalidArgumentException;
-
 class Bible
 {
 
@@ -1479,7 +1477,7 @@ class Bible
 				'Psalms' => explode(' ', 'Psalms Psalm Ps Psa Pss'),
 				'Proverbs' => explode(' ', 'Proverbs Pr Prov Pro'),
 				'Ecclesiastes' => explode(' ', 'Ecclesiastes Ec Ecc'),
-				'Song of Solomon' => ['Song of Solomon', 'SoS', 'Song of Songs'],
+				'Song of Solomon' => ['Song of Solomon', 'Song Of Solomon', 'SoS', 'Song of Songs'],
 				'Isaiah' => explode(' ', 'Isaiah Isa'),
 				'Jeremiah' => explode(' ', 'Jeremiah Je Jer'),
 				'Lamentations' => explode(' ', 'Lamentations La Lam Lament'),
@@ -1578,7 +1576,7 @@ class Bible
 	/**
 	 * Returns the number of verses in a particular book and chapter
 	 *
-	 * @throws InvalidArgumentException
+	 * @throws \InvalidArgumentException
 	 */
 	public static function getVerseCount(string $book, int $chapter): int
 	{
@@ -1587,7 +1585,7 @@ class Bible
 
 		// Make sure the chapter exists
 		if(!isset(self::BIBLE[$title][$chapter]))
-			throw new InvalidArgumentException("Invalid chapter: {$book} {$chapter}");
+			throw new \InvalidArgumentException("Invalid chapter: {$book} {$chapter}");
 
 		return self::BIBLE[$title][$chapter];
 
@@ -1601,7 +1599,7 @@ class Bible
 		$book = (self::getBookVariantMapping())[$title] ?? null;
 		if (!$book && $throwExceptionIfInvalid)
 		{
-			throw new InvalidArgumentException("Invalid book: {$title}");
+			throw new \InvalidArgumentException("Invalid book: {$title}");
 		}
 		return $book;
 	}
@@ -1629,7 +1627,7 @@ class Bible
 		// Sanitize/normalize ordinal input
 		if (!isset($ords[$ordinal]))
 		{
-			throw new InvalidArgumentException("Invalid ordinal: {$ordinal}");
+			throw new \InvalidArgumentException("Invalid ordinal: {$ordinal}");
 		}
 
 		$ret = [];
